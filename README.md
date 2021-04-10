@@ -32,7 +32,7 @@ This script was tested on Ubuntu 20.04, feel free to test in other distros!
 - Gimp
 - Ulauncher
 
----
+
 
 ## How to use
 
@@ -53,3 +53,5 @@ Run the automatic_installation.sh file as root.
 ```bash
 sudo ./automatic_installation.sh
 ```
+
+Enjoy!
