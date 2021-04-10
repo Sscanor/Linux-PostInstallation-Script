@@ -48,7 +48,7 @@ After that, run chmod + x to make the file executable.
 sudo chmod +x ubuntu_post_installation.sh
 ```
 
-Run the automatic_installation.sh file as root.
+Run the ubuntu_post_installation.sh file as root.
 
 ```bash
 sudo ./ubuntu_post_installation.sh
