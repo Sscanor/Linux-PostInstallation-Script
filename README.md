@@ -39,19 +39,19 @@ This script was tested on Ubuntu 20.04, feel free to test in other distros!
 Initially, clone the repository in some directory on your machine.
 
 ```bash
-git clone https://github.com/gugamenezes/Automatic-installation-script.git
+git clone https://github.com/gugamenezes/Linux-PostInstallation-Script.git
 ```
 
 After that, run chmod + x to make the file executable.
 
 ```bash
-sudo chmod +x automatic_installation.sh
+sudo chmod +x ubuntu_post_installation.sh
 ```
 
 Run the automatic_installation.sh file as root.
 
 ```bash
-sudo ./automatic_installation.sh
+sudo ./ubuntu_post_installation.sh
 ```
 
 Enjoy!
