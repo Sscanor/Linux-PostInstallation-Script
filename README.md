@@ -5,7 +5,7 @@ I'm Brazilian and I'm learning English, feel free to correct me :)
 The purpose of this script is basically to automate the installation of programs that I use regularly, facilitating and optimizing the whole process using 
 .deb packages, installation via apt, snap, and ppa.
 
----
+
 
 ## Installation details of the programs
 
