@@ -1,48 +1,64 @@
-#!/usr/bin/env bash
+#!/bin/bash -x
 
 set -e 
 
+# -------------------------------------------------------------------------------------------------------#
+
 apt_programs=( git vagrant virtualbox python3 mlocate docker default-jre default-jdk postgresql 
                apt-transport-https curl plank software-properties-common brave-browser brave-keyring
-               code pycharm gimp ulauncher)
+               code pycharm gimp ulauncher )
+
+all_deb=( "./*.deb" )
 
 ppas=( agornostal/ulauncher graphics-drivers/ppa viktor-krivak/pycharm )
 
-repositories=( "deb http://ppa.launchpad.net/viktor-krivak/pycharm/ubuntu zesty main"
-               "deb [arch=amd64] https://brave-browser-apt-release.s3.brave.com/ stable main"
-               "deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main"
-               )
+arch_repositories=( "[arch=amd64] https://brave-browser-apt-release.s3.brave.com/ stable main"
+                    "[arch=amd64] https://packages.microsoft.com/repos/vscode stable main")
 
-downloads=( "https://brave-browser-apt-release.s3.brave.com/brave-core.asc"
-             )
+downloads=(  ) # If you have a package .deb
+
+keys_repository=( "https://brave-browser-apt-release.s3.brave.com/brave-core.asc"
+                  "https://packages.microsoft.com/keys/microsoft.asc" )
 
 snaps=( spotify )
 
-keys=( "https://brave-browser-apt-release.s3.brave.com/brave-core.asc" )
-
-#--------------------------------------------------------------------------------------------------
+# -------------------------------------------------------------------------------------------------------#
 
 cd $(mktemp -d)
-wget -nv -c ${downloads[@]}
-apt-key add ${keys[@]}
-apt update
 
-for repository in ${repositories[@]};; do
-  apt-add-repository "$repositorio" -y
+# Uncomment the line below if you have placed .deb files in downloads=()
+# echo "Downloading files..." && sleep 1 && wget -nv -c ${downloads[@]}
+
+echo "Downloading repository keys..." && sleep 1 
+for key in ${keys_repository[@]}; do
+  wget -q  $key -O- | apt-key add -
 done
 
-for ppa in ${ppas[@]};; do
+echo "Updating..." && sleep 1 && apt update
+
+echo "Adding repositories deb..." && sleep 1 
+for repository in ${repositories[@]}; do
+  apt-add-repository "deb "$repository -y
+done
+
+echo "Adding repositories ppa..." && sleep 1 
+for ppa in ${ppas[@]}; do
   apt-add-repository "ppa:"$ppa -y
 done
 
-apt update
+echo "Updating..." && sleep 1 && apt update
 
-apt install ${apt_programs[@]} -y
-snap install ${snaps[@]}
+echo "Installing apt programs..." && sleep 1 && apt install ${apt_programs[@]} -y
 
-# apt install ./*.deb - For programs .deb
+echo "Installing snap programs..." && sleep 1 && snap install ${snaps[@]}
 
-apt dist-upgrade -y
-apt autoclean 
+# Uncomment the line below if you have placed .deb files in downloads=()
+# echo "Installing .deb programs..." && sleep 1 && apt install $all_deb
+
+echo "Dist-upgrading..." && sleep 1 && apt dist-upgrade -y
+
+echo "Cleaning packages..." && sleep 1 && apt autoclean 
 
 echo "Installation completed"
+
+# -------------------------------------------------------------------------------------------------------#
